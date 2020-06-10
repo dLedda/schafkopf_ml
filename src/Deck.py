@@ -1,5 +1,7 @@
 from Card import Card
-from typing import List
+TYPECHECKING = False
+if TYPECHECKING:
+    from typing import List
 
 
 class Deck(list):

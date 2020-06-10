@@ -1,20 +1,19 @@
-from Player import Player
-from Card import Card
-from typing import List
+from __future__ import annotations
+TYPECHECKING = False
+if TYPECHECKING:
+    from Player import Player
+    from Game import TrickState
 
 
 class Renderer:
     def __init__(self):
         pass
 
-    def render_stack(self, cards: List[Card]):
+    def render_stack(self, cards: TrickState):
         pass
 
     def render_hand(self, player: Player):
         pass
 
     def render_message(self, message: str):
-        pass
-
-    def render(self) -> None:
         pass

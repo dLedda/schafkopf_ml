@@ -2,7 +2,22 @@ from typing import Dict, List
 from Card import Card
 from collections import namedtuple
 
-
+SUITS_STR: Dict[Card.Suit, str] = {
+    Card.Suit.Eichel: "♣",
+    Card.Suit.Gras: "♠",
+    Card.Suit.Herz: "♥",
+    Card.Suit.Schellen: "♦",
+}
+RANKS_STR: Dict[Card.Rank, str] = {
+    Card.Rank.Ober: "O",
+    Card.Rank.Unter: "U",
+    Card.Rank.Ass: "A",
+    Card.Rank.Koenig: "K",
+    Card.Rank.Zehn: "X",
+    Card.Rank.Neun: "9",
+    Card.Rank.Acht: "8",
+    Card.Rank.Sieben: "7",
+}
 SUIT_COLOR: Dict[Card.Suit, str] = {
     Card.Suit.Eichel: "Black",
     Card.Suit.Gras: "Green",
@@ -54,7 +69,7 @@ GLYPH_CHAR: Dict[str, str] = {
 def glyph_for(card: Card) -> Glyph:
     glyph = Glyph(CARD_GLYPH_CHARS.copy(), CARD_GLYPH_COLOR.copy())
     for i, line in enumerate(glyph.chars):
-        glyph.chars[i] = line.replace("S", Card.SUITS_STR[card.suit]).replace("R", Card.RANKS_STR[card.rank])
+        glyph.chars[i] = line.replace("S", SUITS_STR[card.suit]).replace("R", RANKS_STR[card.rank])
     for i, line in enumerate(glyph.colors):
         glyph.colors[i] = line.replace("S", GLYPH_CHAR[SUIT_COLOR[card.suit]])
     return glyph
@@ -83,7 +98,7 @@ def stacked_glyphs(cards: List[Card]):
     result_width = len(CARD_GLYPH_CHARS[0]) + len(cards) - 1
     result_height = len(CARD_GLYPH_CHARS) + len(cards) - 1
     result = Glyph([" " * result_width] * result_height, [GLYPH_CHAR["Default"] * result_width] * result_height)
-    for i, card in enumerate(reversed(cards)):
+    for i, card in enumerate(cards):
         origin_coord = [i, i]
         for j, (chars_line, glyph_colors_line) in enumerate(zip(glyph_for(card).chars, glyph_for(card).colors)):
             chars_out = result.chars[j + origin_coord[0]]
